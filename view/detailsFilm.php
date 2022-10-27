@@ -1,6 +1,17 @@
-<?php ob_start(); ?> 
+<?php 
+ob_start(); 
+$filminfos = $requete_details->fetch();
 
-<p>Il y a <?= $requete->rowCount() ?> rôles </p> <!-- "?=" est un raccourci pour "? php echo" -->
+?> 
+
+<ul>
+    <li>Réal. : <?= $filminfos['Réalisateur']?></li>
+    <li>Durée : <?= $filminfos['duree']?></li>
+    <li>Sortie FR : <?= $filminfos['Sortie_FR']?></li>
+    <li>Note : <?= $filminfos['note_film']?>/5</li>
+    <li>Synopsis : <?= $filminfos['resume_film']?></li>
+</ul>
+
 
 <table>
     <thead>
@@ -11,10 +22,10 @@
     </thead>
     <tbody>
         <?php
-            foreach($requete->fetchAll() as $role){ ?>
+            foreach($requete_casting->fetchAll() as $role){ ?>
                 <tr>
                     <td><?= $role["nom_role"]?></td>
-                    <td><?= $role["Acteur"]?></td>
+                    <td><?= $role["interprete"]?></td>
                 </tr>
         <?php } ?>
     </tbody>
@@ -22,8 +33,8 @@
 
 <?php
 
-$titre ="Liste des rôles";
-$titre_secondaire = "Liste des rôles";
+$titre ="Détails du film ".$filminfos['titre_film'];
+$titre_secondaire = "Détails du film ".$filminfos['titre_film'];
 $contenu = ob_get_clean(); //on aspire tout ce qu'il y a entre ob_start et ob_get_clean et on le stocke dans une variable $contenu
 require "view/template.php"; //on injecte le tableau dans le template "squelette"
 //on aura dans template.php des variables qui vont accueillir les éléments provenant des vues
