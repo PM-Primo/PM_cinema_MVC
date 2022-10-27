@@ -24,7 +24,7 @@ $realinfos = $requete_details->fetch();
         <?php
             foreach($requete_filmo->fetchAll() as $film){ ?>
                 <tr>
-                    <td><?= $film["titre_film"]?></td>
+                    <td><a href="index.php?action=detailsFilm&id=<?= $film["id_film"]?>"><?= $film["titre_film"]?></a></td>
                     <td><?= $film["Sortie_FR"]?></td>
                 </tr>
         <?php } ?>

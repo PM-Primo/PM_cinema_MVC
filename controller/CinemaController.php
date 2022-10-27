@@ -107,7 +107,7 @@ class CinemaController{
         $requete_details->execute(["id"=> $id]);
 
         $requete_filmo = $pdo->prepare("
-            SELECT f.titre_film, date_format(f.date_sortie_film,'%Y') AS 'Sortie_FR'
+            SELECT f.titre_film, date_format(f.date_sortie_film,'%Y') AS 'Sortie_FR', f.id_film
             FROM film f
             WHERE f.id_realisateur = :id
             ORDER BY f.date_sortie_film DESC
