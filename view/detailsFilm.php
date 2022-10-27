@@ -12,7 +12,7 @@ $filminfos = $requete_details->fetch();
     <li>Synopsis : <?= $filminfos['resume_film']?></li>
 </ul>
 
-<h2>Distribution du <?= $filminfos['titre_film']?></h2>
+<h2>Distribution de <?= $filminfos['titre_film']?></h2>
 
 <table>
     <thead>
@@ -26,7 +26,7 @@ $filminfos = $requete_details->fetch();
             foreach($requete_casting->fetchAll() as $role){ ?>
                 <tr>
                     <td><?= $role["nom_role"]?></td>
-                    <td><?= $role["interprete"]?></td>
+                    <td><a href="index.php?action=detailsActeur&id=<?=$role["id_acteur"]?>"><?= $role["interprete"]?></a></td>
                 </tr>
         <?php } ?>
     </tbody>
