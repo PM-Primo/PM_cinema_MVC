@@ -1,20 +1,20 @@
 <?php ob_start(); ?> 
 
-<p>Il y a <?= $requete->rowCount() ?> films </p> <!-- "?=" est un raccourci pour "? php echo" -->
+<p>Il y a <?= $requete->rowCount() ?> acteurs.trices </p> <!-- "?=" est un raccourci pour "? php echo" -->
 
 <table>
     <thead>
         <tr>
-            <th>Titre</th>
-            <th>Sortie FR</th>
+            <th>Nom</th>
+            <th>Date de naissance</th>
         </tr>
     </thead>
     <tbody>
         <?php
-            foreach($requete->fetchAll() as $film){ ?>
+            foreach($requete->fetchAll() as $acteur){ ?>
                 <tr>
-                    <td><?= $film["titre_film"]?></td>
-                    <td><?= $film["Sortie_FR"]?></td>
+                    <td><?= $acteur["nom_complet"]?></td>
+                    <td><?= $acteur["date_naiss_act"]?></td>
                 </tr>
         <?php } ?>
     </tbody>

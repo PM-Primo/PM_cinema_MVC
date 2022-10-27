@@ -9,14 +9,18 @@ spl_autoload_register(function($class_name){
 $ctrlCinema = new CinemaController();
 
 if(isset($_GET["action"])){
-
     switch($_GET["action"]){
 
         case "listFilms" : $ctrlCinema->listFilms(); break;
         case "listActeurs" : $ctrlCinema->listActeurs(); break;
+        case "listReals" : $ctrlCinema->listReals(); break;
+        case "listGenres" : $ctrlCinema->listGenres(); break;
+        case "listRoles" : $ctrlCinema->listRoles(); break;
 
     }
-
+}
+else{
+    $ctrlCinema->home();
 }
 
 ?>
