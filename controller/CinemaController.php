@@ -12,6 +12,7 @@ class CinemaController{
         $requete = $pdo->query("
             SELECT titre_film, date_format(date_sortie_film,'%d/%m/%Y') AS 'Sortie_FR'
             FROM film
+            ORDER BY date_sortie_film DESC
         ");
         require "view/listFilms.php";
     }
@@ -23,6 +24,7 @@ class CinemaController{
             SELECT CONCAT(p.prenom, ' ', p.nom) as 'nom_complet', date_format(p.date_naissance,'%d/%m/%Y') AS 'date_naiss_act'
             FROM acteur a 
             INNER JOIN personne p ON a.id_personne = p.id_personne
+            ORDER BY p.nom ASC
         ");
         require "view/listActeurs.php";
     }
@@ -34,8 +36,30 @@ class CinemaController{
             SELECT CONCAT(p.prenom, ' ', p.nom) as 'nom_complet', date_format(p.date_naissance,'%d/%m/%Y') AS 'date_naiss_real'
             FROM realisateur r 
             INNER JOIN personne p ON r.id_personne = p.id_personne
+            ORDER BY p.nom ASC
         ");
         require "view/listReals.php";
+    }
+
+    public function listGenres() {
+
+        $pdo = Connect::seConnecter(); 
+        $requete = $pdo->query("
+            SELECT libelle_genre
+            FROM genre
+            ORDER BY libelle_genre ASC
+        ");
+        require "view/listGenres.php";
+    }
+
+    public function listRoles() {
+
+        $pdo = Connect::seConnecter(); 
+        $requete = $pdo->query("
+            SELECT nom_role
+            FROM role
+        ");
+        require "view/listRoles.php";
     }
 
     public function home() {
