@@ -5,13 +5,14 @@ $filminfos = $requete_details->fetch();
 ?> 
 
 <ul>
-    <li>Réal. : <?= $filminfos['Réalisateur']?></li>
+    <li>Réal. : <a href="index.php?action=detailsReal&id=<?= $filminfos['id_realisateur']?>"><?= $filminfos['Réalisateur']?><a></li>
     <li>Durée : <?= $filminfos['duree']?></li>
     <li>Sortie FR : <?= $filminfos['Sortie_FR']?></li>
     <li>Note : <?= $filminfos['note_film']?>/5</li>
     <li>Synopsis : <?= $filminfos['resume_film']?></li>
 </ul>
 
+<h2>Distribution du <?= $filminfos['titre_film']?></h2>
 
 <table>
     <thead>

@@ -33,7 +33,7 @@ class CinemaController{
 
         $pdo = Connect::seConnecter(); 
         $requete = $pdo->query("
-            SELECT CONCAT(p.prenom, ' ', p.nom) as 'nom_complet', date_format(p.date_naissance,'%d/%m/%Y') AS 'date_naiss_real'
+            SELECT CONCAT(p.prenom, ' ', p.nom) as 'nom_complet', date_format(p.date_naissance,'%d/%m/%Y') AS 'date_naiss_real', id_realisateur
             FROM realisateur r 
             INNER JOIN personne p ON r.id_personne = p.id_personne
             ORDER BY p.nom ASC
@@ -72,7 +72,7 @@ class CinemaController{
         $requete_details = $pdo->prepare("
             SELECT f.titre_film, date_format(sec_to_time(f.duree_film*60), '%Hh%i') AS duree, 
             date_format(f.date_sortie_film,'%d/%m/%Y') AS 'Sortie_FR', f.note_film, f.resume_film, 
-            CONCAT (p.prenom,' ' ,p.nom) AS 'Réalisateur'
+            CONCAT (p.prenom,' ' ,p.nom) AS 'Réalisateur', r.id_realisateur
             FROM film f 
             INNER JOIN realisateur r ON f.id_realisateur = r.id_realisateur
             INNER JOIN personne p ON p.id_personne = r.id_personne
@@ -92,6 +92,29 @@ class CinemaController{
 
 
         require "view/detailsFilm.php";
+    }
+
+    public function detailsReal($id) {
+
+        $pdo = Connect::seConnecter(); 
+        $requete_details = $pdo->prepare("
+            SELECT CONCAT(p.prenom, ' ', p.nom) as 'nom_complet', p.sexe, 
+            DATE_FORMAT(p.date_naissance,'%d/%m/%Y') AS 'naissance'
+            FROM realisateur r 
+            INNER JOIN personne p ON r.id_personne = p.id_personne
+            WHERE r.id_realisateur = :id
+        ");
+        $requete_details->execute(["id"=> $id]);
+
+        $requete_filmo = $pdo->prepare("
+            SELECT f.titre_film, date_format(f.date_sortie_film,'%Y') AS 'Sortie_FR'
+            FROM film f
+            WHERE f.id_realisateur = :id
+            ORDER BY f.date_sortie_film DESC
+        ");
+        $requete_filmo->execute(["id"=> $id]);
+
+        require "view/detailsReal.php";
     }
 
     public function home() {
