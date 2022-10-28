@@ -5,6 +5,12 @@ use Model\Connect;
 
 class CinemaController{
 
+    // Page d'accueil
+    public function home() {
+        require "view/home.php";
+    }
+
+
     // Lister les films
     public function listFilms() {
 
@@ -17,6 +23,7 @@ class CinemaController{
         require "view/listFilms.php";
     }
 
+    // Lister les acteurs
     public function listActeurs() {
 
         $pdo = Connect::seConnecter();
@@ -29,6 +36,7 @@ class CinemaController{
         require "view/listActeurs.php";
     }
 
+    // Lister les réalisateurs
     public function listReals() {
 
         $pdo = Connect::seConnecter(); 
@@ -41,6 +49,7 @@ class CinemaController{
         require "view/listReals.php";
     }
 
+    // Lister les genres
     public function listGenres() {
 
         $pdo = Connect::seConnecter(); 
@@ -52,6 +61,7 @@ class CinemaController{
         require "view/listGenres.php";
     }
 
+    // Lister les Rôles
     public function listRoles() {
 
         $pdo = Connect::seConnecter(); 
@@ -63,6 +73,7 @@ class CinemaController{
         require "view/listRoles.php";
     }
 
+    // Infos & casting d'un film
     public function detailsFilm($id) {
 
         $pdo = Connect::seConnecter(); 
@@ -100,6 +111,7 @@ class CinemaController{
         require "view/detailsFilm.php";
     }
 
+    // Infos & filmographie d'un réal
     public function detailsReal($id) {
 
         $pdo = Connect::seConnecter(); 
@@ -123,6 +135,7 @@ class CinemaController{
         require "view/detailsReal.php";
     }
 
+    // Infos & filmographie d'un acteur
     public function detailsActeur($id) {
 
         $pdo = Connect::seConnecter(); 
@@ -147,6 +160,7 @@ class CinemaController{
         require "view/detailsActeur.php";
     }
 
+    // Liste des films d'un genre
     public function detailsGenre($id) {
 
         $pdo = Connect::seConnecter(); 
@@ -170,6 +184,7 @@ class CinemaController{
         require "view/detailsGenre.php";
     }
 
+    // Liste des acteurs ayant joué un rôle & films correspondants
     public function detailsRole($id) {
 
         $pdo = Connect::seConnecter(); 
@@ -195,11 +210,19 @@ class CinemaController{
         require "view/detailsRole.php";
     }
 
-    public function home() {
-        require "view/home.php";
+    // Ajouter un nouveau Genre
+    public function addGenre($libelle_genre){
+
+        $pdo = Connect::seConnecter();
+
+        $requete = $pdo->prepare("
+        INSERT INTO genre (libelle_genre)
+        VALUES (:lib)
+        ");
+
+        $requete->execute(["lib"=> $libelle_genre]);
+        
     }
-
-
 }
 
 

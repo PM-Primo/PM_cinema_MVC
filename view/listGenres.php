@@ -18,6 +18,18 @@
     </tbody>
 </table>
 
+<form action="index.php?action=addGenre" method="post">
+    <p>
+        <label>
+            Ajouter un genre : <br>
+            <input type="text" name="libelle_genre">
+        </label>
+    <p>
+        <input type="submit" name="submit" value="Valider">
+    </p>
+    
+</form>
+
 <?php
 
 $titre ="Liste des genres";
