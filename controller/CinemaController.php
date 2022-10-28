@@ -45,7 +45,7 @@ class CinemaController{
 
         $pdo = Connect::seConnecter(); 
         $requete = $pdo->query("
-            SELECT libelle_genre
+            SELECT libelle_genre, id_genre
             FROM genre
             ORDER BY libelle_genre ASC
         ");
@@ -139,6 +139,29 @@ class CinemaController{
         $requete_filmo->execute(["id"=> $id]);
 
         require "view/detailsActeur.php";
+    }
+
+    public function detailsGenre($id) {
+
+        $pdo = Connect::seConnecter(); 
+
+        $requete_details = $pdo->prepare("
+        SELECT libelle_genre
+        FROM genre g
+        WHERE g.id_genre = :id
+        ");
+        $requete_details->execute(["id"=> $id]);
+
+        $requete_filmo = $pdo->prepare("
+        SELECT f.titre_film, cg.id_film, date_format(f.date_sortie_film,'%d/%m/%Y') AS 'Sortie_FR'
+        FROM categoriser_genre cg
+        INNER JOIN film f ON cg.id_film = f.id_film
+        WHERE cg.id_genre = :id
+        ORDER BY f.date_sortie_film DESC
+        ");
+        $requete_filmo->execute(["id"=> $id]);
+
+        require "view/detailsGenre.php";
     }
 
     public function home() {
