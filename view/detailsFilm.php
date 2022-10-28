@@ -13,7 +13,7 @@ $filminfos = $requete_details->fetch();
             foreach($requete_genres->fetchAll() as $genre){
                 $strGenre.="<a href='index.php?action=detailsGenre&id=".$genre['id_genre']."'>".$genre["libelle_genre"]."</a> / ";
             } 
-            echo substr($strGenre, 0, -3) ?> 
+            echo substr($strGenre, 0, -3) //on enlève les 3 derniers caractères de la chaîne (pour enlever " / " à la fin) ?> 
     </li>
 
     <li>Sortie FR : <?= $filminfos['Sortie_FR']?></li>

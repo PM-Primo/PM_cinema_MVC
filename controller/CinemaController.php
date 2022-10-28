@@ -56,11 +56,8 @@ class CinemaController{
 
         $pdo = Connect::seConnecter(); 
         $requete = $pdo->query("
-            SELECT r.nom_role, CONCAT(p.prenom, ' ', p.nom) AS 'Acteur'
-            FROM interpreter i
-            INNER JOIN role r ON i.id_role = r.id_role
-            INNER JOIN acteur a ON i.id_acteur = a.id_acteur
-            INNER JOIN personne p ON a.id_personne = p.id_personne
+            SELECT r.nom_role, r.id_role
+            FROM role r
             ORDER BY r.nom_role
         ");
         require "view/listRoles.php";
@@ -173,16 +170,37 @@ class CinemaController{
         require "view/detailsGenre.php";
     }
 
+    public function detailsRole($id) {
+
+        $pdo = Connect::seConnecter(); 
+
+        $requete_details = $pdo->prepare("
+        SELECT r.nom_role
+        FROM role r
+        WHERE r.id_role = :id
+        ");
+        $requete_details->execute(["id"=> $id]);
+
+        $requete_filmo = $pdo->prepare("
+        SELECT CONCAT(p.prenom, ' ', p.nom) AS 'nom_complet', f.titre_film, date_format(f.date_sortie_film,'%Y') AS 'Sortie_FR', a.id_acteur, f.id_film
+        FROM interpreter i
+        INNER JOIN acteur a ON i.id_acteur = a.id_acteur
+        INNER JOIN personne p ON a.id_personne = p.id_personne
+        INNER JOIN film f ON i.id_film = f.id_film
+        WHERE i.id_role = :id
+        ORDER BY f.date_sortie_film DESC
+        ");
+        $requete_filmo->execute(["id"=> $id]);
+
+        require "view/detailsRole.php";
+    }
+
     public function home() {
         require "view/home.php";
     }
 
 
 }
-
-
-
-
 
 
 
