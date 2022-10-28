@@ -21,7 +21,13 @@ if(isset($_GET["action"])){
         case "detailsActeur" : $ctrlCinema->detailsActeur($_GET["id"]); break;
         case "detailsGenre" : $ctrlCinema->detailsGenre($_GET["id"]); break;
         case "detailsRole" : $ctrlCinema->detailsRole($_GET["id"]);break;
-        case "addGenre" : $ctrlCinema->addGenre(filter_input(INPUT_POST, "libelle_genre", FILTER_SANITIZE_FULL_SPECIAL_CHARS)); break;
+        case "addGenre" : 
+            if(isset($_POST["submit"])){
+                $ctrlCinema->addGenre(filter_input(INPUT_POST, "libelle_genre", FILTER_SANITIZE_FULL_SPECIAL_CHARS)); 
+            }
+            break;
+        case "addActeur" :
+            break;
 
     }
 }

@@ -213,14 +213,18 @@ class CinemaController{
     // Ajouter un nouveau Genre
     public function addGenre($libelle_genre){
 
-        $pdo = Connect::seConnecter();
+        if($libelle_genre){
+            $pdo = Connect::seConnecter();
+            
+            $requete = $pdo->prepare("
+            INSERT INTO genre (libelle_genre)
+            VALUES (:lib)
+            ");
 
-        $requete = $pdo->prepare("
-        INSERT INTO genre (libelle_genre)
-        VALUES (:lib)
-        ");
+            $requete->execute(["lib"=> $libelle_genre]);
+        }
 
-        $requete->execute(["lib"=> $libelle_genre]);
+        header("Location:index.php?action=listGenres");
         
     }
 }
