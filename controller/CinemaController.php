@@ -227,6 +227,34 @@ class CinemaController{
         header("Location:index.php?action=listGenres");
         
     }
+
+    public function validateDate($date, $format = 'Y-m-d'){
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) === $date;
+    }
+
+    //FONCTION VALIDATEDATE NE FONCTIONNE PAS ! A VERIFIER
+
+    // Ajouter un nouvel Acteur
+    public function addActeur($nom_acteur, $prenom_acteur, $sexe_acteur, $date_naissance_acteur, $acteur_real ){
+
+        var_dump(validateDate($date_naissance_acteur));
+        die;
+
+        if($nom_acteur && $prenom_acteur && $sexe_acteur && validateDate($date_naissance_acteur)){
+            $pdo = Connect::seConnecter();
+
+            //Requête pour créer la personne
+
+            //Requête pour associer la personne à un id acteur
+
+            // IF la case est cochée : requête pour associer la personne à un id réalisateur
+        
+        }
+
+        header("Location:index.php?action=listActeurs");
+        
+    }
 }
 
 
