@@ -6,7 +6,6 @@
     <thead>
         <tr>
             <th>Rôle</th>
-            <th>Interprète</th>
         </tr>
     </thead>
     <tbody>
@@ -14,7 +13,6 @@
             foreach($requete->fetchAll() as $role){ ?>
                 <tr>
                     <td><?= $role["nom_role"]?></td>
-                    <td><?= $role["Acteur"]?></td>
                 </tr>
         <?php } ?>
     </tbody>

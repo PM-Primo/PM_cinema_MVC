@@ -69,6 +69,7 @@ class CinemaController{
     public function detailsFilm($id) {
 
         $pdo = Connect::seConnecter(); 
+
         $requete_details = $pdo->prepare("
             SELECT f.titre_film, date_format(sec_to_time(f.duree_film*60), '%Hh%i') AS duree, 
             date_format(f.date_sortie_film,'%d/%m/%Y') AS 'Sortie_FR', f.note_film, f.resume_film, 
@@ -89,6 +90,14 @@ class CinemaController{
             WHERE i.id_film = :id
         ");
         $requete_casting->execute(["id"=> $id]);
+
+        $requete_genres = $pdo->prepare("
+        SELECT g.libelle_genre, cg.id_genre
+        FROM categoriser_genre cg
+        INNER JOIN genre g ON cg.id_genre = g.id_genre
+        WHERE cg.id_film = :id
+        ");
+        $requete_genres->execute(["id"=> $id]);
 
 
         require "view/detailsFilm.php";

@@ -7,6 +7,15 @@ $filminfos = $requete_details->fetch();
 <ul>
     <li>Réal. : <a href="index.php?action=detailsReal&id=<?= $filminfos['id_realisateur']?>"><?= $filminfos['Réalisateur']?><a></li>
     <li>Durée : <?= $filminfos['duree']?></li>
+    <li>Genre(s) : 
+        <?php
+            $strGenre = ""; 
+            foreach($requete_genres->fetchAll() as $genre){
+                $strGenre.="<a href='index.php?action=detailsGenre&id=".$genre['id_genre']."'>".$genre["libelle_genre"]."</a> / ";
+            } 
+            echo substr($strGenre, 0, -3) ?> 
+    </li>
+
     <li>Sortie FR : <?= $filminfos['Sortie_FR']?></li>
     <li>Note : <?= $filminfos['note_film']?>/5</li>
     <li>Synopsis : <?= $filminfos['resume_film']?></li>
