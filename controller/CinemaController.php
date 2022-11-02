@@ -228,25 +228,23 @@ class CinemaController{
         
     }
 
-    public function validateDate($date, $format = 'Y-m-d'){
-        $d = DateTime::createFromFormat($format, $date);
-        return $d && $d->format($format) === $date;
-    }
+    // public function validateDate($date, $format = 'Y-m-d'){
+    //     $d = DateTime::createFromFormat($format, $date);
+    //     return $d && $d->format($format) === $date;
+    // }
 
     //FONCTION VALIDATEDATE NE FONCTIONNE PAS ! A VERIFIER
 
-    // Ajouter un nouvel Acteur
-    public function addActeur($nom_acteur, $prenom_acteur, $sexe_acteur, $date_naissance_acteur, $acteur_real ){
 
-        if($nom_acteur && $prenom_acteur && $sexe_acteur && $date_naissance_acteur){
-            $pdo = Connect::seConnecter();
+    public function newPersonne($nom, $prenom, $sexe, $date_naissance){
+        $pdo = Connect::seConnecter();
 
             //Requête pour créer la personne
             $requete_personne = $pdo->prepare("
             INSERT INTO personne (nom, prenom, sexe, date_naissance)
             VALUES (:nom, :prenom, :sexe, :date)
             ");
-            $requete_personne->execute(["nom"=> $nom_acteur, "prenom" => $prenom_acteur, "sexe"=>$sexe_acteur, "date" =>$date_naissance_acteur]);
+            $requete_personne->execute(["nom"=> $nom, "prenom" => $prenom, "sexe"=>$sexe, "date" =>$date_naissance]);
 
             //Requête pour rechercher l'id personne du nouvel acteur
             $requete_personne_id = $pdo->prepare("
@@ -256,15 +254,26 @@ class CinemaController{
             AND p.prenom = :prenom
             AND p.date_naissance = :date
             ");
-            $requete_personne_id->execute(["nom"=> $nom_acteur, "prenom" => $prenom_acteur, "date" =>$date_naissance_acteur]);
+            $requete_personne_id->execute(["nom"=> $nom, "prenom" => $prenom, "date" =>$date_naissance]);
             $id_personne = $requete_personne_id->fetch();
+            return $id_personne[0]; 
+    }
+
+    // Ajouter un nouvel Acteur
+    public function addActeur($nom_acteur, $prenom_acteur, $sexe_acteur, $date_naissance_acteur, $acteur_real){
+
+        if($nom_acteur && $prenom_acteur && $sexe_acteur && $date_naissance_acteur){
+            $pdo = Connect::seConnecter();
+
+            //Appel à la fonction de création de personne
+            $id_personne = $this->newPersonne($nom_acteur, $prenom_acteur, $sexe_acteur, $date_naissance_acteur);
 
             //Requête pour associer la personne à un id acteur
             $requete_acteur = $pdo->prepare("
             INSERT INTO acteur (id_personne)
             VALUES (:idpers)
             ");
-            $requete_acteur->execute(["idpers"=> $id_personne[0]]);
+            $requete_acteur->execute(["idpers"=> $id_personne]);
 
             // IF la case est cochée : requête pour associer la personne à un id réalisateur
             if($acteur_real){
@@ -272,7 +281,7 @@ class CinemaController{
                 INSERT INTO realisateur (id_personne)
                 VALUES (:idpers)
                 ");
-                $requete_real->execute(["idpers"=> $id_personne[0]]);
+                $requete_real->execute(["idpers"=> $id_personne]);
             };
         
         }
@@ -287,38 +296,23 @@ class CinemaController{
         if($nom_real && $prenom_real && $sexe_real && $date_naissance_real){
             $pdo = Connect::seConnecter();
 
-            //Requête pour créer la personne
-            $requete_personne = $pdo->prepare("
-            INSERT INTO personne (nom, prenom, sexe, date_naissance)
-            VALUES (:nom, :prenom, :sexe, :date)
-            ");
-            $requete_personne->execute(["nom"=> $nom_real, "prenom" => $prenom_real, "sexe"=>$sexe_real, "date" =>$date_naissance_real]);
-
-            //Requête pour rechercher l'id personne du nouvel acteur
-            $requete_personne_id = $pdo->prepare("
-            SELECT p.id_personne
-            FROM personne p 
-            WHERE p.nom = :nom
-            AND p.prenom = :prenom
-            AND p.date_naissance = :date
-            ");
-            $requete_personne_id->execute(["nom"=> $nom_real, "prenom" => $prenom_real, "date" =>$date_naissance_real]);
-            $id_personne = $requete_personne_id->fetch();
+            //Appel à la fonction de création de personne
+            $id_personne = $this->newPersonne($nom_real, $prenom_real, $sexe_real, $date_naissance_real);
 
             //Requête pour associer la personne à un id acteur
             $requete_real = $pdo->prepare("
             INSERT INTO realisateur (id_personne)
             VALUES (:idpers)
             ");
-            $requete_real->execute(["idpers"=> $id_personne[0]]);
+            $requete_real->execute(["idpers"=> $id_personne]);
 
-            // IF la case est cochée : requête pour associer la personne à un id réalisateur
+            // IF la case est cochée : requête pour associer la personne à un id acteur
             if($acteur_real){
                 $requete_real = $pdo->prepare("
                 INSERT INTO acteur (id_personne)
                 VALUES (:idpers)
                 ");
-                $requete_real->execute(["idpers"=> $id_personne[0]]);
+                $requete_real->execute(["idpers"=> $id_personne]);
             };
         
         }
