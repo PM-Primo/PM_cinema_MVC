@@ -20,12 +20,36 @@
     </tbody>
 </table>
 
+
 <form action="index.php?action=addFilm" method="post">
     <p>Ajouter un film à la base de données</p>
     <p>
         <label>
             Titre du film : <br>
             <input type="text" name="titre_film">
+        </label>
+    </p>
+    <p>
+        <label>
+            Réalisateur : <br>
+            <select id="real_film" name="real_film">
+                <!-- Créer une requête qui va chercher la liste des reals & leurs id & l'appeler ici avec un foreach -->
+                <?php foreach($requete_reals->fetchAll() as $real){?>
+                    <option value="<?= $real['id_realisateur'] ?>"><?= $real["nom_complet"]?></option>
+                <?php } ?>
+            </select>
+        </label>
+    </p>
+    <!-- ici on va ajouter le genre du film-->
+    <p>
+        <label>
+            Genre : <br>
+            <select id="genre_film" name="genre_film">
+                <!-- Créer une requête qui va chercher la liste des reals & leurs id & l'appeler ici avec un foreach -->
+                <?php foreach($requete_genres->fetchAll() as $genre){?>
+                    <option value="<?= $genre['id_genre'] ?>"><?= $genre["libelle"]?></option>
+                <?php } ?>
+            </select>
         </label>
     </p>
     <p>
@@ -52,17 +76,7 @@
             <textarea id="resume_film" name="resume_film" rows="6" cols="60"></textarea>
         </label>
     </p>
-    <p>
-        <label>
-            Réalisateur : <br>
-            <select id="real_film" name="real_film">
-                <!-- Créer une requête qui va chercher la liste des reals & leurs id & l'appeler ici avec un foreach -->
-                <?php foreach($requete_reals->fetchAll() as $real){?>
-                    <option value="<?= $real['id_realisateur'] ?>"><?= $real["nom_complet"]?></option>
-                <?php } ?>
-            </select>
-        </label>
-    </p>
+
 
     <input type="submit" name="submit" value="Valider">
     

@@ -74,6 +74,15 @@ if(isset($_GET["action"])){
             filter_input(INPUT_POST, "real_film", FILTER_SANITIZE_FULL_SPECIAL_CHARS)
             );
             break;
+
+        case "addGenreToFilm" :
+            if(isset($_POST["submit"])){
+                $ctrlCinema->addGenreToFilm(
+                filter_input(INPUT_POST, "nvgenre_film", FILTER_VALIDATE_INT),
+                $_GET["id"]
+            );
+            }
+            break;
     }
 }
 else{

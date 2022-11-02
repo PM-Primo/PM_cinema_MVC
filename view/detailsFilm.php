@@ -14,7 +14,21 @@ $filminfos = $requete_details->fetch();
                 $strGenre.="<a href='index.php?action=detailsGenre&id=".$genre['id_genre']."'>".$genre["libelle_genre"]."</a> / ";
             } 
             echo substr($strGenre, 0, -3) //on enlève les 3 derniers caractères de la chaîne (pour enlever " / " à la fin) ?> 
-    </li>
+
+                <!-- liste déroulante pour ajouter un genre -->
+        <br><form action="index.php?action=addGenreToFilm&id=<?= $filminfos['id_film']?>" method="post">
+            <label>
+                Ajouter un genre ? : 
+                <select id="nvgenre_film" name="nvgenre_film">
+                    <?php foreach($requete_all_genres->fetchAll() as $genre){?>
+                        <option value="<?= $genre['id_genre'] ?>"><?= $genre["libelle_genre"]?></option>
+                    <?php } ?>
+                </select>
+            </label>
+            <input type="submit" name="submit" value="+">
+        </form>
+    </li> 
+
 
     <li>Sortie FR : <?= $filminfos['Sortie_FR']?></li>
     <li>Note : <?= $filminfos['note_film']?>/5</li>

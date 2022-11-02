@@ -89,7 +89,7 @@ class CinemaController{
         $requete_details = $pdo->prepare("
             SELECT f.titre_film, date_format(sec_to_time(f.duree_film*60), '%Hh%i') AS duree, 
             date_format(f.date_sortie_film,'%d/%m/%Y') AS 'Sortie_FR', f.note_film, f.resume_film, 
-            CONCAT (p.prenom,' ' ,p.nom) AS 'Réalisateur', r.id_realisateur
+            CONCAT (p.prenom,' ' ,p.nom) AS 'Réalisateur', r.id_realisateur, f.id_film
             FROM film f 
             INNER JOIN realisateur r ON f.id_realisateur = r.id_realisateur
             INNER JOIN personne p ON p.id_personne = r.id_personne
@@ -106,6 +106,12 @@ class CinemaController{
             WHERE i.id_film = :id
         ");
         $requete_casting->execute(["id"=> $id]);
+
+        $requete_all_genres = $pdo->query("
+        SELECT libelle_genre, id_genre
+        FROM genre
+        ORDER BY libelle_genre ASC
+        ");
 
         $requete_genres = $pdo->prepare("
         SELECT g.libelle_genre, cg.id_genre
@@ -335,9 +341,14 @@ class CinemaController{
         }
         
         header("Location:index.php?action=listFilms");
-
     }
 
+    public function addGenreToFilm($id_genre, $id_film){
+
+        if($id_genre && $id_film){
+            //là on mettra la fonction d'ajout de genre 
+        }
+    }
 
 }
 
