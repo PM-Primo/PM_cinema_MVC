@@ -20,6 +20,14 @@ class CinemaController{
             FROM film
             ORDER BY date_sortie_film DESC
         ");
+
+        $requete_reals = $pdo->query("
+        SELECT CONCAT(p.prenom, ' ', p.nom) as 'nom_complet', id_realisateur
+        FROM realisateur r 
+        INNER JOIN personne p ON r.id_personne = p.id_personne
+        ORDER BY p.nom ASC
+        ");
+
         require "view/listFilms.php";
     }
 
@@ -235,7 +243,7 @@ class CinemaController{
 
     //FONCTION VALIDATEDATE NE FONCTIONNE PAS ! A VERIFIER
 
-
+    //Ajouter une nouvelle personne : est appelée dans la création d'acteur ou de réalisateur
     public function newPersonne($nom, $prenom, $sexe, $date_naissance){
         $pdo = Connect::seConnecter();
 
@@ -283,11 +291,8 @@ class CinemaController{
                 ");
                 $requete_real->execute(["idpers"=> $id_personne]);
             };
-        
         }
-
         header("Location:index.php?action=listActeurs");
-        
     }
 
     // Ajouter un nouveau Real
@@ -314,12 +319,26 @@ class CinemaController{
                 ");
                 $requete_real->execute(["idpers"=> $id_personne]);
             };
-        
         }
-
         header("Location:index.php?action=listReals");
-        
     }
+
+    public function addFilm($titre_film, $duree_film, $date_sortie_film, $note_film, $resume_film, $real_film){
+        if($titre_film && $duree_film && $date_sortie_film && $note_film && $real_film){
+            $pdo = Connect::seConnecter();
+
+            $requete_film = $pdo->prepare("
+            INSERT INTO film(titre_film, duree_film, date_sortie_film, note_film, resume_film, id_realisateur)
+            VALUES (:titre, :duree, :datesortie, :note, :resume, :idreal)
+            ");
+            $requete_film->execute(["titre"=> $titre_film, "duree" => $duree_film, "datesortie" => $date_sortie_film, "note"=>$note_film, "resume" =>$resume_film, "idreal"=>$real_film ]);
+        }
+        
+        header("Location:index.php?action=listFilms");
+
+    }
+
+
 }
 
 
