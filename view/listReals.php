@@ -20,6 +20,50 @@
     </tbody>
 </table>
 
+<!-- Formulaire d'ajout des réalisateurs.trices -->
+
+<form action="index.php?action=addReal" method="post">
+    <p>Ajouter un.e réalisateur.trice à la base de données</p>
+    <p>
+        <label>
+            Nom : <br>
+            <input type="text" name="nom_real">
+        </label>
+    </p>
+    <p>
+        <label>
+            Prénom : <br>
+            <input type="text" name="prenom_real">
+        </label>
+    </p>
+    <p>
+        <label>
+            Genre : <br>
+            <select id="sexe_acteur" name="sexe_real">
+                <option value="homme">Homme</option>
+                <option value="femme">Femme</option>
+                <option value="autre">Autre</option>
+            </select>
+        </label>
+    </p>
+    <p>
+        <label>
+            Date de naissance : <br>
+            <input type="date" name="date_naissance_real">
+        </label>
+    </p>
+    <p>
+        <label>
+            <input type="checkbox" id="acteur_real" name="acteur_real">
+            <label for="acteur_real">Cet.te réalisateur.trice est également acteur.trice</label>
+        </label>
+    </p>
+
+    <input type="submit" name="submit" value="Valider">
+    
+</form>
+
+
 <?php
 
 $titre ="Liste des réalisateurs.trices";

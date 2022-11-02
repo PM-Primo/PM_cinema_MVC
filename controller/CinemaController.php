@@ -238,21 +238,92 @@ class CinemaController{
     // Ajouter un nouvel Acteur
     public function addActeur($nom_acteur, $prenom_acteur, $sexe_acteur, $date_naissance_acteur, $acteur_real ){
 
-        var_dump(validateDate($date_naissance_acteur));
-        die;
-
-        if($nom_acteur && $prenom_acteur && $sexe_acteur && validateDate($date_naissance_acteur)){
+        if($nom_acteur && $prenom_acteur && $sexe_acteur && $date_naissance_acteur){
             $pdo = Connect::seConnecter();
 
             //Requête pour créer la personne
+            $requete_personne = $pdo->prepare("
+            INSERT INTO personne (nom, prenom, sexe, date_naissance)
+            VALUES (:nom, :prenom, :sexe, :date)
+            ");
+            $requete_personne->execute(["nom"=> $nom_acteur, "prenom" => $prenom_acteur, "sexe"=>$sexe_acteur, "date" =>$date_naissance_acteur]);
+
+            //Requête pour rechercher l'id personne du nouvel acteur
+            $requete_personne_id = $pdo->prepare("
+            SELECT p.id_personne
+            FROM personne p 
+            WHERE p.nom = :nom
+            AND p.prenom = :prenom
+            AND p.date_naissance = :date
+            ");
+            $requete_personne_id->execute(["nom"=> $nom_acteur, "prenom" => $prenom_acteur, "date" =>$date_naissance_acteur]);
+            $id_personne = $requete_personne_id->fetch();
 
             //Requête pour associer la personne à un id acteur
+            $requete_acteur = $pdo->prepare("
+            INSERT INTO acteur (id_personne)
+            VALUES (:idpers)
+            ");
+            $requete_acteur->execute(["idpers"=> $id_personne[0]]);
 
             // IF la case est cochée : requête pour associer la personne à un id réalisateur
+            if($acteur_real){
+                $requete_real = $pdo->prepare("
+                INSERT INTO realisateur (id_personne)
+                VALUES (:idpers)
+                ");
+                $requete_real->execute(["idpers"=> $id_personne[0]]);
+            };
         
         }
 
         header("Location:index.php?action=listActeurs");
+        
+    }
+
+    // Ajouter un nouveau Real
+    public function addReal($nom_real, $prenom_real, $sexe_real, $date_naissance_real, $acteur_real ){
+
+        if($nom_real && $prenom_real && $sexe_real && $date_naissance_real){
+            $pdo = Connect::seConnecter();
+
+            //Requête pour créer la personne
+            $requete_personne = $pdo->prepare("
+            INSERT INTO personne (nom, prenom, sexe, date_naissance)
+            VALUES (:nom, :prenom, :sexe, :date)
+            ");
+            $requete_personne->execute(["nom"=> $nom_real, "prenom" => $prenom_real, "sexe"=>$sexe_real, "date" =>$date_naissance_real]);
+
+            //Requête pour rechercher l'id personne du nouvel acteur
+            $requete_personne_id = $pdo->prepare("
+            SELECT p.id_personne
+            FROM personne p 
+            WHERE p.nom = :nom
+            AND p.prenom = :prenom
+            AND p.date_naissance = :date
+            ");
+            $requete_personne_id->execute(["nom"=> $nom_real, "prenom" => $prenom_real, "date" =>$date_naissance_real]);
+            $id_personne = $requete_personne_id->fetch();
+
+            //Requête pour associer la personne à un id acteur
+            $requete_real = $pdo->prepare("
+            INSERT INTO realisateur (id_personne)
+            VALUES (:idpers)
+            ");
+            $requete_real->execute(["idpers"=> $id_personne[0]]);
+
+            // IF la case est cochée : requête pour associer la personne à un id réalisateur
+            if($acteur_real){
+                $requete_real = $pdo->prepare("
+                INSERT INTO acteur (id_personne)
+                VALUES (:idpers)
+                ");
+                $requete_real->execute(["idpers"=> $id_personne[0]]);
+            };
+        
+        }
+
+        header("Location:index.php?action=listReals");
         
     }
 }

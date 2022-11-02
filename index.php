@@ -26,12 +26,40 @@ if(isset($_GET["action"])){
                 $ctrlCinema->addGenre(filter_input(INPUT_POST, "libelle_genre", FILTER_SANITIZE_FULL_SPECIAL_CHARS)); 
             }
             break;
-        case "addActeur" : $ctrlCinema->addActeur(
+        case "addActeur" : 
+            
+            //peut-on le mettre ailleurs ?
+            if (isset($_POST['acteur_real'])){
+                $acteur_real=true;
+            }
+            else{
+                $acteur_real=false;
+            }
+            
+            $ctrlCinema->addActeur(
             filter_input(INPUT_POST, "nom_acteur", FILTER_SANITIZE_FULL_SPECIAL_CHARS),
             filter_input(INPUT_POST, "prenom_acteur", FILTER_SANITIZE_FULL_SPECIAL_CHARS),
             filter_input(INPUT_POST, "sexe_acteur", FILTER_SANITIZE_FULL_SPECIAL_CHARS),
             $_POST['date_naissance_acteur'],
-            $_POST['acteur_real']      
+            $acteur_real    
+            );
+            break;
+        case "addReal" : 
+            
+            //peut-on le mettre ailleurs ?
+            if (isset($_POST['acteur_real'])){
+                $acteur_real=true;
+            }
+            else{
+                $acteur_real=false;
+            }
+            
+            $ctrlCinema->addReal(
+            filter_input(INPUT_POST, "nom_real", FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            filter_input(INPUT_POST, "prenom_real", FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            filter_input(INPUT_POST, "sexe_real", FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            $_POST['date_naissance_real'],
+            $acteur_real    
             );
             break;
     
