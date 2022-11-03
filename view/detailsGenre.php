@@ -4,24 +4,25 @@ $nomgenre = $requete_details->fetch();
 
 ?> 
 
-
-<table>
-    <thead>
-        <tr>
-            <th>Film</th>
-            <th>Sortie FR</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-            foreach($requete_filmo->fetchAll() as $film){ ?>
-                <tr>
-                    <td><a href="index.php?action=detailsFilm&id=<?= $film["id_film"]?>"><?= $film["titre_film"]?></a></td>
-                    <td><?= $film["Sortie_FR"]?></td>
-                </tr>
-        <?php } ?>
-    </tbody>
-</table>
+<div class="enveloppe_listeform">
+    <table class="liste_double">
+        <thead>
+            <tr>
+                <th>Film</th>
+                <th>Sortie FR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                foreach($requete_filmo->fetchAll() as $film){ ?>
+                    <tr>
+                        <td><a href="index.php?action=detailsFilm&id=<?= $film["id_film"]?>"><?= $film["titre_film"]?></a></td>
+                        <td><?= $film["Sortie_FR"]?></td>
+                    </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
 
 <?php
 

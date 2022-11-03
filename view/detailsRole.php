@@ -4,26 +4,27 @@ $nomrole = $requete_details->fetch();
 
 ?> 
 
-
-<table>
-    <thead>
-        <tr>
-            <th>Interprète</th>
-            <th>Film</th>
-            <th>Sortie FR</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-            foreach($requete_filmo->fetchAll() as $role){ ?>
-                <tr>
-                    <td><a href="index.php?action=detailsActeur&id=<?= $role["id_acteur"]?>"><?= $role["nom_complet"]?></a></td>
-                    <td><a href="index.php?action=detailsFilm&id=<?= $role["id_film"]?>"><?= $role["titre_film"]?></a></td>
-                    <td><?= $role["Sortie_FR"]?></td>
-                </tr>
-        <?php } ?>
-    </tbody>
-</table>
+<div class="enveloppe_listeform">
+    <table class="liste_triple">
+        <thead>
+            <tr>
+                <th>Interprète</th>
+                <th>Film</th>
+                <th>Sortie FR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                foreach($requete_filmo->fetchAll() as $role){ ?>
+                    <tr>
+                        <td><a href="index.php?action=detailsActeur&id=<?= $role["id_acteur"]?>"><?= $role["nom_complet"]?></a></td>
+                        <td><a href="index.php?action=detailsFilm&id=<?= $role["id_film"]?>"><?= $role["titre_film"]?></a></td>
+                        <td><?= $role["Sortie_FR"]?></td>
+                    </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
 
 <?php
 

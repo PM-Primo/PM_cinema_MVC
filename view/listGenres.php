@@ -27,9 +27,9 @@
             Intitulé du genre  : <br>
             <input type="text" name="libelle_genre" class="champ_txt">
         </label>
-    <p>
+    <div class="submit_wrapper">
         <input type="submit" name="submit" value="Valider" class="submit">
-    </p>
+    </div>
     
 </form>
 

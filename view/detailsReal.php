@@ -4,7 +4,7 @@ $realinfos = $requete_details->fetch();
 
 ?> 
 
-<ul>
+<ul class="encart_infos">
     <li>Nom complet : <?= $realinfos['nom_complet']?></li>
     <li>Genre : <?= $realinfos['sexe']?></li>
     <li>Date de naissance : <?= $realinfos['naissance']?></li>
@@ -13,24 +13,25 @@ $realinfos = $requete_details->fetch();
 
 <h2> Filmographie de <?= $realinfos['nom_complet']?> (réal.)</h2>
 
-<table>
-    <thead>
-        <tr>
-            <th>Film</th>
-            <th>Sortie FR</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-            foreach($requete_filmo->fetchAll() as $film){ ?>
-                <tr>
-                    <td><a href="index.php?action=detailsFilm&id=<?= $film["id_film"]?>"><?= $film["titre_film"]?></a></td>
-                    <td><?= $film["Sortie_FR"]?></td>
-                </tr>
-        <?php } ?>
-    </tbody>
-</table>
-
+<div class="enveloppe_listeform">
+    <table class="liste_double">
+        <thead>
+            <tr>
+                <th>Film</th>
+                <th>Sortie FR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                foreach($requete_filmo->fetchAll() as $film){ ?>
+                    <tr>
+                        <td><a href="index.php?action=detailsFilm&id=<?= $film["id_film"]?>"><?= $film["titre_film"]?></a></td>
+                        <td><?= $film["Sortie_FR"]?></td>
+                    </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
 <?php
 
 $titre ="Biographie de ".$realinfos['nom_complet'];

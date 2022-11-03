@@ -4,8 +4,8 @@ $filminfos = $requete_details->fetch();
 
 ?> 
 
-<ul>
-    <li>Réal. : <a href="index.php?action=detailsReal&id=<?= $filminfos['id_realisateur']?>"><?= $filminfos['Réalisateur']?><a></li>
+<ul class="encart_infos">
+    <li>Réal. : <a href="index.php?action=detailsReal&id=<?= $filminfos['id_realisateur']?>"><?= $filminfos['Réalisateur']?></a></li>
     <li>Durée : <?= $filminfos['duree']?></li>
     <li>Genre(s) : 
         <?php
@@ -27,24 +27,25 @@ $filminfos = $requete_details->fetch();
 </ul>
 
 <h2>Distribution de <?= $filminfos['titre_film']?></h2>
-
-<table>
-    <thead>
-        <tr>
-            <th>Rôle</th>
-            <th>Interprète</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-            foreach($requete_casting->fetchAll() as $role){ ?>
-                <tr>
-                    <td><?= $role["nom_role"]?></td>
-                    <td><a href="index.php?action=detailsActeur&id=<?=$role["id_acteur"]?>"><?= $role["interprete"]?></a></td>
-                </tr>
-        <?php } ?>
-    </tbody>
-</table>
+<div class="enveloppe_listeform">
+    <table class="liste_double">
+        <thead>
+            <tr>
+                <th>Rôle</th>
+                <th>Interprète</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                foreach($requete_casting->fetchAll() as $role){ ?>
+                    <tr>
+                        <td><?= $role["nom_role"]?></td>
+                        <td><a href="index.php?action=detailsActeur&id=<?=$role["id_acteur"]?>"><?= $role["interprete"]?></a></td>
+                    </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
 
 <?php
 

@@ -59,6 +59,15 @@ a{
     color: rgb(255, 188, 107)
 }
 
+/*FRONTPAGE*/
+
+.message_accueil{
+    text-align: center;
+    margin-top: 150px;
+}
+
+/*POUR LES PAGES DES LISTES*/
+
 .compteur{
     text-align: center;
     margin: 10px 0 10px 0;
@@ -72,6 +81,7 @@ a{
     align-items: flex-start;
 }
 
+/* pour les listes*/
 th{
     padding:0 0 20px 0;
 }
@@ -79,7 +89,6 @@ th{
 td{
     padding: 7px 0 7px 0;
 }
-
 
 .liste{
     width: 33%;
@@ -98,7 +107,11 @@ td{
     text-align: center;
 }
 
+.dates{
+    text-align: center;
+}
 
+/* pour les formulaires */
 
 .formulaire{
     width: 33%;
@@ -107,10 +120,6 @@ td{
     background-color: rgba(255, 255, 255, 0.045);
     line-height: 20pt;
     margin-bottom: 40px;
-}
-
-.dates{
-    text-align: center;
 }
 
 .submit_wrapper{
@@ -139,14 +148,36 @@ td{
     background-color: rgb(255, 246, 236) ;
     border: none;
     border-radius: 10px;
-    padding: 3px 0 3px 15px;
+    padding: 3px 15px 3px 15px;
 }
+
 .case_cocher{
     padding: 3px 0 3px 0px;
     line-height: 40pt;
 }
 
-.message_accueil{
+/*POUR LES PAGES DE DETAIL*/
+
+.encart_infos{
+    line-height: 18pt;
+    width: 60%;
+    margin-bottom: 60px;
+}
+
+.liste_double{
+    width: 30%;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.045);
+    margin-bottom: 40px;
     text-align: center;
-    margin-top: 150px;
+}
+
+.liste_triple{
+    width: 50%;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.045);
+    margin-bottom: 40px;
+    text-align: center;
 }
