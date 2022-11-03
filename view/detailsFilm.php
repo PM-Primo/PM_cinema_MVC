@@ -15,10 +15,14 @@ $filminfos = $requete_details->fetch();
             } 
             echo substr($strGenre, 0, -3) //on enlève les 3 derniers caractères de la chaîne (pour enlever " / " à la fin) ?> 
     </li> 
-
-
     <li>Sortie FR : <?= $filminfos['Sortie_FR']?></li>
-    <li>Note : <?= $filminfos['note_film']?>/5</li>
+    <li>Note : <?php 
+        $nbstar=$filminfos['note_film'];
+        for ($i = 1; $i <= $nbstar; $i++) {
+            echo "<i class='fa-solid fa-star'></i>";
+        }    
+        ?>
+    </li>
     <li>Synopsis : <?= $filminfos['resume_film']?></li>
 </ul>
 
