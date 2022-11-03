@@ -1,8 +1,8 @@
 <?php ob_start(); ?> 
 
 <p class="compteur"><?= $requete->rowCount() ?> films en base de données </p> <!-- "?=" est un raccourci pour "? php echo" -->
-<div class="enveloppe_listefilms">
-    <table class="liste_films">
+<div class="enveloppe_listeform">
+    <table class="liste">
         <thead>
             <tr>
                 <th>Titre</th>
@@ -21,7 +21,7 @@
     </table>
 
 
-    <form action="index.php?action=addFilm" method="post" class="formulaire_films">
+    <form action="index.php?action=addFilm" method="post" class="formulaire">
         <h3>Ajouter un film à la base de données</h3>
         <p>
             <label>
