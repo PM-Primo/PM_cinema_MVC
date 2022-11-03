@@ -227,7 +227,9 @@ class CinemaController{
     // Ajouter un nouveau Genre
     public function addGenre($libelle_genre){
 
-        if($libelle_genre){
+        $libelle_genre = filter_var($libelle_genre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        if(isset($_POST["submit"]) && $libelle_genre){
             $pdo = Connect::seConnecter();
             
             $requete = $pdo->prepare("
@@ -241,13 +243,6 @@ class CinemaController{
         header("Location:index.php?action=listGenres");
         
     }
-
-    // public function validateDate($date, $format = 'Y-m-d'){
-    //     $d = DateTime::createFromFormat($format, $date);
-    //     return $d && $d->format($format) === $date;
-    // }
-
-    //FONCTION VALIDATEDATE NE FONCTIONNE PAS ! A VERIFIER
 
     //Ajouter une nouvelle personne : est appelée dans la création d'acteur ou de réalisateur
     public function newPersonne($nom, $prenom, $sexe, $date_naissance){
