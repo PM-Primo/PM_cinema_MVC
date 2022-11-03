@@ -1,6 +1,6 @@
 <?php ob_start(); ?> 
 
-<p>Il y a <?= $requete->rowCount() ?> rôles </p> <!-- "?=" est un raccourci pour "? php echo" -->
+<p class="compteur"><?= $requete->rowCount() ?> rôles en base de données</p> <!-- "?=" est un raccourci pour "? php echo" -->
 
 <table>
     <thead>

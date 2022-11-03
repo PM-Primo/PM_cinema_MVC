@@ -1,6 +1,6 @@
 <?php ob_start(); ?> 
 
-<p>Il y a <?= $requete->rowCount() ?> realisateurs.trices </p> <!-- "?=" est un raccourci pour "? php echo" -->
+<p class="compteur"><?= $requete->rowCount() ?> realisateurs.trices en base de données</p> <!-- "?=" est un raccourci pour "? php echo" -->
 
 <table>
     <thead>

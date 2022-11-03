@@ -14,13 +14,18 @@ li{
 h1{
     font-size: 36pt;
     text-align: center;
-    margin: 6px;
+    margin: 12px;
 }
 
 h2{
     font-size: 24pt;
     text-align: center;
     margin : 6 px;
+}
+
+h3{
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 
@@ -52,4 +57,81 @@ body {
 a{
     text-decoration: none;
     color: rgb(255, 188, 107)
+}
+
+.compteur{
+    text-align: center;
+    margin: 10px 0 10px 0;
+}
+
+.enveloppe_listefilms{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+th{
+    padding:0 0 20px 0;
+}
+
+td{
+    padding: 7px 0 7px 0;
+}
+
+
+.liste_films{
+    width: 33%;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.045);
+    margin-bottom: 40px;
+}
+
+.formulaire_films{
+    width: 33%;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.045);
+    line-height: 20pt;
+    margin-bottom: 40px;
+}
+
+.dates{
+    text-align: center;
+}
+
+.submit_wrapper{
+    text-align: center;
+}
+
+.submit{
+    margin-top: 15px;
+    padding: 5px 30px 5px 30px;
+    background-color: rgb(255, 188, 107) ;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.submit:hover{
+    background-color: bisque;
+    transform: scale(1.1);
+    
+}
+
+.champ_txt{
+    width: 100%;
+    background-color: rgb(255, 246, 236) ;
+    border: none;
+    border-radius: 10px;
+    padding: 3px 0 3px 15px;
+}
+
+.message_accueil{
+    text-align: center;
+    margin-top: 150px;
 }

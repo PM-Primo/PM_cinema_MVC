@@ -1,6 +1,6 @@
 <?php ob_start(); ?> 
 
-<p>Bienvenue sur la base de données "Cinema PDO"</p>
+<p class="message_accueil">Bienvenue sur la base de données "Cinema PDO"</p>
 
 <?php
 

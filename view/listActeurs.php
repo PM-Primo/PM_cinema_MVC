@@ -1,6 +1,6 @@
 <?php ob_start(); ?> 
 
-<p>Il y a <?= $requete->rowCount() ?> acteurs.trices </p> <!-- "?=" est un raccourci pour "? php echo" -->
+<p class="compteur"><?= $requete->rowCount() ?> acteurs.trices en base de données</p> <!-- "?=" est un raccourci pour "? php echo" -->
 
 <!-- affichage de la liste des acteurs.trices -->
 
