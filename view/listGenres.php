@@ -2,10 +2,12 @@
 
 <p class="compteur"><?= $requete->rowCount() ?> genres en base de données</p> <!-- "?=" est un raccourci pour "? php echo" -->
 
-<table>
+<div class="enveloppe_listeform">
+
+<table class="liste_simple">
     <thead>
         <tr>
-            <th>Genre</th>
+            <th>Genres</th>
         </tr>
     </thead>
     <tbody>
@@ -18,14 +20,15 @@
     </tbody>
 </table>
 
-<form action="index.php?action=addGenre" method="post">
+<form action="index.php?action=addGenre" method="post" class ="formulaire">
+    <h3>Ajouter un genre</h3>
     <p>
         <label>
-            Ajouter un genre : <br>
-            <input type="text" name="libelle_genre">
+            Intitulé du genre  : <br>
+            <input type="text" name="libelle_genre" class="champ_txt">
         </label>
     <p>
-        <input type="submit" name="submit" value="Valider">
+        <input type="submit" name="submit" value="Valider" class="submit">
     </p>
     
 </form>

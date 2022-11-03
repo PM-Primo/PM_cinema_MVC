@@ -2,21 +2,23 @@
 
 <p class="compteur"><?= $requete->rowCount() ?> rôles en base de données</p> <!-- "?=" est un raccourci pour "? php echo" -->
 
-<table>
-    <thead>
-        <tr>
-            <th>Rôle</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-            foreach($requete->fetchAll() as $role){ ?>
-                <tr>
-                    <td><a href="index.php?action=detailsRole&id=<?= $role['id_role']?>"><?= $role["nom_role"]?></a></td>
-                </tr>
-        <?php } ?>
-    </tbody>
-</table>
+<div class="enveloppe_listeform">
+    <table class="liste_simple">
+        <thead>
+            <tr>
+                <th>Rôles</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                foreach($requete->fetchAll() as $role){ ?>
+                    <tr>
+                        <td><a href="index.php?action=detailsRole&id=<?= $role['id_role']?>"><?= $role["nom_role"]?></a></td>
+                    </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
 
 <?php
 
