@@ -9,16 +9,18 @@
     <title><?= $titre ?></title>
 </head>
 <body>
-    <nav>
-    <ul>
-        <li><a href="index.php?action=listFilms">Films</a></li>
-        <li><a href="index.php?action=listActeurs">Acteurs</a></li>
-        <li><a href="index.php?action=listReals">Réalisateurs</a></li>
-        <li><a href="index.php?action=listGenres">Genres</a></li>
-        <li><a href="index.php?action=listRoles">Rôles</a></li>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.php?action=listFilms">Films</a></li>
+                <li><a href="index.php?action=listActeurs">Acteurs</a></li>
+                <li><a href="index.php?action=listReals">Réalisateurs</a></li>
+                <li><a href="index.php?action=listGenres">Genres</a></li>
+                <li><a href="index.php?action=listRoles">Rôles</a></li>
 
-    </ul>
-    </nav>    
+            </ul>
+        </nav>
+    </header>
     <div id="wrapper">
         <main>
             <div id="contenu">
