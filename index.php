@@ -65,23 +65,16 @@ if(isset($_GET["action"])){
             break;
     
         case "addFilm" : 
+
             $ctrlCinema->addFilm(
             filter_input(INPUT_POST, "titre_film", FILTER_SANITIZE_FULL_SPECIAL_CHARS),
             filter_input(INPUT_POST, "duree_film", FILTER_VALIDATE_INT),
             $_POST['date_sortie_film'],
             filter_input(INPUT_POST, "note_film", FILTER_VALIDATE_INT),  
             filter_input(INPUT_POST, "resume_film", FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-            filter_input(INPUT_POST, "real_film", FILTER_SANITIZE_FULL_SPECIAL_CHARS)
+            filter_input(INPUT_POST, "real_film", FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            $_POST['genres_film']
             );
-            break;
-
-        case "addGenreToFilm" :
-            if(isset($_POST["submit"])){
-                $ctrlCinema->addGenreToFilm(
-                filter_input(INPUT_POST, "nvgenre_film", FILTER_VALIDATE_INT),
-                $_GET["id"]
-            );
-            }
             break;
     }
 }

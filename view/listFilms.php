@@ -40,15 +40,13 @@
             </select>
         </label>
     </p>
-    <!-- ici on va ajouter le genre du film-->
     <p>
         <label>
-            Genre : <br>
-            <select id="genre_film" name="genre_film">
-                <!-- Créer une requête qui va chercher la liste des reals & leurs id & l'appeler ici avec un foreach -->
-                <?php foreach($requete_genres->fetchAll() as $genre){?>
-                    <option value="<?= $genre['id_genre'] ?>"><?= $genre["libelle"]?></option>
-                <?php } ?>
+            Genre(s) : <br>
+            <select id="genres_film" name="genres_film[]" multiple>
+            <?php foreach($requete_all_genres->fetchAll() as $genre){?>
+                <option value="<?= $genre['id_genre'] ?>"><?= $genre["libelle_genre"]?></option>
+            <?php } ?>
             </select>
         </label>
     </p>

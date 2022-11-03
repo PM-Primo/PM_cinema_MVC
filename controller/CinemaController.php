@@ -28,6 +28,12 @@ class CinemaController{
         ORDER BY p.nom ASC
         ");
 
+        $requete_all_genres = $pdo->query("
+        SELECT libelle_genre, id_genre
+        FROM genre
+        ORDER BY libelle_genre ASC
+        ");
+
         require "view/listFilms.php";
     }
 
@@ -106,12 +112,6 @@ class CinemaController{
             WHERE i.id_film = :id
         ");
         $requete_casting->execute(["id"=> $id]);
-
-        $requete_all_genres = $pdo->query("
-        SELECT libelle_genre, id_genre
-        FROM genre
-        ORDER BY libelle_genre ASC
-        ");
 
         $requete_genres = $pdo->prepare("
         SELECT g.libelle_genre, cg.id_genre
@@ -324,13 +324,13 @@ class CinemaController{
                 VALUES (:idpers)
                 ");
                 $requete_real->execute(["idpers"=> $id_personne]);
-            };
+            }
         }
         header("Location:index.php?action=listReals");
     }
 
-    public function addFilm($titre_film, $duree_film, $date_sortie_film, $note_film, $resume_film, $real_film){
-        if($titre_film && $duree_film && $date_sortie_film && $note_film && $real_film){
+    public function addFilm($titre_film, $duree_film, $date_sortie_film, $note_film, $resume_film, $real_film, $genres_film){
+        if($titre_film && $duree_film && $date_sortie_film && $note_film && $real_film && $genres_film){
             $pdo = Connect::seConnecter();
 
             $requete_film = $pdo->prepare("
@@ -338,17 +338,32 @@ class CinemaController{
             VALUES (:titre, :duree, :datesortie, :note, :resume, :idreal)
             ");
             $requete_film->execute(["titre"=> $titre_film, "duree" => $duree_film, "datesortie" => $date_sortie_film, "note"=>$note_film, "resume" =>$resume_film, "idreal"=>$real_film ]);
+        
+            $requete_idfilm = $pdo->prepare("
+            SELECT id_film
+            FROM film
+            WHERE titre_film = :titre
+            AND date_sortie_film = :date
+            ");
+            $requete_idfilm->execute(["titre"=> $titre_film, "date" => $date_sortie_film]);
+            $id_film = $requete_idfilm->fetch();
+            $id_film = $id_film[0];
+            // var_dump($genres_film);
+            // die;
+
+            foreach($genres_film as $id_genre){
+                $requete_genres = $pdo->prepare("
+                INSERT INTO categoriser_genre (id_film, id_genre)
+                VALUES (:idfilm, :idgenre) 
+                ");
+                $requete_genres->execute(["idfilm" => $id_film, "idgenre" => $id_genre]);
+            }
+
         }
         
         header("Location:index.php?action=listFilms");
     }
 
-    public function addGenreToFilm($id_genre, $id_film){
-
-        if($id_genre && $id_film){
-            //là on mettra la fonction d'ajout de genre 
-        }
-    }
 
 }
 
