@@ -40,9 +40,9 @@
         <label>
             Genre : <br>
             <select id="sexe_acteur" name="sexe_real">
-                <option value="homme">Homme</option>
-                <option value="femme">Femme</option>
-                <option value="autre">Autre</option>
+                <option value="Homme">Homme</option>
+                <option value="Femme">Femme</option>
+                <option value="Autre">Autre</option>
             </select>
         </label>
     </p>

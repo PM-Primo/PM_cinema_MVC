@@ -225,9 +225,9 @@ class CinemaController{
     }
 
     // Ajouter un nouveau Genre
-    public function addGenre($libelle_genre){
+    public function addGenre(){
 
-        $libelle_genre = filter_var($libelle_genre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $libelle_genre =  filter_input(INPUT_POST, "libelle_genre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if(isset($_POST["submit"]) && $libelle_genre){
             $pdo = Connect::seConnecter();
@@ -239,10 +239,8 @@ class CinemaController{
 
             $requete->execute(["lib"=> $libelle_genre]);
         }
-
         header("Location:index.php?action=listGenres");
-        
-    }
+        }
 
     //Ajouter une nouvelle personne : est appelée dans la création d'acteur ou de réalisateur
     public function newPersonne($nom, $prenom, $sexe, $date_naissance){
@@ -269,9 +267,17 @@ class CinemaController{
     }
 
     // Ajouter un nouvel Acteur
-    public function addActeur($nom_acteur, $prenom_acteur, $sexe_acteur, $date_naissance_acteur, $acteur_real){
+    public function addActeur(){
 
-        if($nom_acteur && $prenom_acteur && $sexe_acteur && $date_naissance_acteur){
+        $nom_acteur = filter_input(INPUT_POST, "nom_acteur", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $prenom_acteur = filter_input(INPUT_POST, "prenom_acteur", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $sexe_acteur = filter_input(INPUT_POST, "sexe_acteur", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $date_naissance_acteur = filter_input(INPUT_POST, "date_naissance_acteur", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        if (isset($_POST['acteur_real'])){$acteur_real=true;}
+        else{$acteur_real=false;}
+
+        if(isset($_POST["submit"]) && $nom_acteur && $prenom_acteur && $sexe_acteur && $date_naissance_acteur){
             $pdo = Connect::seConnecter();
 
             //Appel à la fonction de création de personne
@@ -297,9 +303,17 @@ class CinemaController{
     }
 
     // Ajouter un nouveau Real
-    public function addReal($nom_real, $prenom_real, $sexe_real, $date_naissance_real, $acteur_real ){
+    public function addReal(){
 
-        if($nom_real && $prenom_real && $sexe_real && $date_naissance_real){
+        $nom_real = filter_input(INPUT_POST, "nom_real", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $prenom_real = filter_input(INPUT_POST, "prenom_real", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $sexe_real = filter_input(INPUT_POST, "sexe_real", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $date_naissance_real = filter_input(INPUT_POST, "date_naissance_real", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        if (isset($_POST['acteur_real'])){$acteur_real=true;}
+        else{$acteur_real=false;}
+
+        if(isset($_POST["submit"]) && $nom_real && $prenom_real && $sexe_real && $date_naissance_real){
             $pdo = Connect::seConnecter();
 
             //Appel à la fonction de création de personne
@@ -324,8 +338,18 @@ class CinemaController{
         header("Location:index.php?action=listReals");
     }
 
-    public function addFilm($titre_film, $duree_film, $date_sortie_film, $note_film, $resume_film, $real_film, $genres_film){
-        if($titre_film && $duree_film && $date_sortie_film && $note_film && $real_film && $genres_film){
+    //Ajouter un nouveau film
+    public function addFilm(){
+
+        $titre_film = filter_input(INPUT_POST, "titre_film", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $duree_film = filter_input(INPUT_POST, "duree_film", FILTER_VALIDATE_INT);
+        $date_sortie_film = filter_input(INPUT_POST, "date_sortie_film", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $note_film = filter_input(INPUT_POST, "note_film", FILTER_VALIDATE_INT);
+        $resume_film = filter_input(INPUT_POST, "resume_film", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $real_film = filter_input(INPUT_POST, "real_film", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $genres_film = $_POST['genres_film'];
+        
+        if(isset($_POST["submit"]) && $titre_film && $duree_film && $date_sortie_film && $note_film && $real_film && $genres_film){
             $pdo = Connect::seConnecter();
 
             $requete_film = $pdo->prepare("
@@ -353,13 +377,9 @@ class CinemaController{
                 ");
                 $requete_genres->execute(["idfilm" => $id_film, "idgenre" => $id_genre]);
             }
-
         }
-        
         header("Location:index.php?action=listFilms");
     }
-
-
 }
 
 
